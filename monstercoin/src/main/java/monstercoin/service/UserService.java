@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UserService
 {
-    public User getUser(String login);
+    public User getUser(String login, String password);
 
     public void saveUser(User theUser);
 

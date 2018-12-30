@@ -22,12 +22,15 @@ public class UserRestController
     }
 
     // add mapping for GET /users/{userLogin}
+    @CrossOrigin
     @GetMapping("/usersLogin")
-    public User getUser(@RequestParam (value = "login", required = true) String login){
-        System.out.println("UserRestController number 1: " + login);
+    public User getUser(@RequestParam (value = "login", required = true) String login,
+                        @RequestParam (value = "password", required = true) String password){
+        System.out.println("UserRestController number 1: " + login + " " + password);
         String tempLogin = login;
-        User theUser = userService.getUser(login);
-        System.out.println("UserRestController number 2: " + login);
+        String tempPassword = password;
+        User theUser = userService.getUser(login, password);
+        System.out.println("UserRestController number 2: " + login + " " + password);
 
         if(theUser == null){
             throw new CustomerNotFoundException("Customer id not found - " + login);
@@ -35,6 +38,7 @@ public class UserRestController
 
         return theUser;
     }
+
 
     // add mapping for POST /users - add new user
     @PostMapping("/users")

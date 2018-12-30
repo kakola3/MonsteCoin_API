@@ -3,9 +3,15 @@
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.luv2code.springdemo</groupId>
-  <artifactId>spring-crm-rest</artifactId>
+  <artifactId>spring-crm-rest2</artifactId>
   <version>1.0.0</version>
   <packaging>war</packaging>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.0.5.RELEASE</version>
+  </parent>
 
   <properties>
     <springframework.version>5.0.6.RELEASE</springframework.version>
@@ -85,12 +91,37 @@
       <artifactId>jaxb-api</artifactId>
       <version>2.3.0</version>
     </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.5</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mortbay.jetty</groupId>
+      <artifactId>jetty-util</artifactId>
+      <version>6.1.25</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mortbay.jetty</groupId>
+      <artifactId>jetty-util</artifactId>
+      <version>6.1.25</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mortbay.jetty</groupId>
+      <artifactId>jetty-util</artifactId>
+      <version>6.1.25</version>
+    </dependency>
 
   </dependencies>
 
   <build>
 
-    <finalName>spring-crm-rest</finalName>
+    <finalName>spring-crm-rest2</finalName>
 
     <plugins>
 
@@ -101,6 +132,11 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
         <version>3.2.0</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
 
     </plugins>

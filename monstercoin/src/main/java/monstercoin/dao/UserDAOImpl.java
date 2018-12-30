@@ -35,7 +35,7 @@ public class UserDAOImpl implements UserDAO
     }
 
     @Override
-    public User getUser(String login) {
+    public User getUser(String login, String password) {
         // get the current hibernate session
         Session currentSession = sessionFactory.getCurrentSession();
 
@@ -49,8 +49,9 @@ public class UserDAOImpl implements UserDAO
         for (User user :
                 users) {
             String tempLogin = login;
-            if(user.getLogin().equals(login)){
-                System.out.println("If statement: " + login);
+            String tempPassword = password;
+            if(user.getLogin().equals(login) && user.getPassword().equals(password)){
+                System.out.println("If statement: " + login + " " + password);
                 theUser = user;
             }
         }

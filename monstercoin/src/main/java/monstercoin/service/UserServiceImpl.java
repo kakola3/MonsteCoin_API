@@ -25,9 +25,9 @@ public class UserServiceImpl implements UserService
 
     @Override
     @Transactional
-    public User getUser(String login) {
+    public User getUser(String login, String password) {
         System.out.println("UserServiceImpl class: " + login);
-        return userDAO.getUser(login);
+        return userDAO.getUser(login, password);
     }
 
 
