@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Implementation-Version: 1.0.0
+Built-By: kacpe
+Implementation-Vendor-Id: com.luv2code.springdemo
+Created-By: IntelliJ IDEA
+Build-Jdk: 9.0.4
+Main-Class: ${start-class}
+

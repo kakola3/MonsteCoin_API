@@ -1,6 +1,7 @@
 package monstercoin.coinbot;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,7 +28,7 @@ public class Coinbot
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));
         String inputLine;
-        StringBuffer content = new StringBuffer();
+        StringBuffer content = new StringBuffer();// maybe StringBuilder
         while ((inputLine = in.readLine()) != null) {
             content.append(inputLine);
         }
@@ -35,6 +36,17 @@ public class Coinbot
 
         con.disconnect();
         System.out.println(content);
+
+        JSONObject jsonObject = new JSONObject(content.toString());
+
+        System.out.println("id: " + jsonObject.getString("id"));
+        System.out.println("name: " + jsonObject.getString("name"));
+        System.out.println("symbol: " + jsonObject.getString("symbol"));
+        System.out.println("last_updated: " + jsonObject.getString("last_updated"));
+
+        JSONObject jsonObject2 = jsonObject.getJSONObject("quotes");
+        System.out.println(jsonObject2);
+        System.out.println("price: " + jsonObject2.getString("price"));
 
 
     }

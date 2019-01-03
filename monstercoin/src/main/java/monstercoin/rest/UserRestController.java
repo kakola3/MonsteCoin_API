@@ -16,6 +16,7 @@ public class UserRestController
     private UserService userService;
 
     // add mapping for GET /users
+    @CrossOrigin
     @GetMapping("/users")
     public List<User> getUsers(){
         return userService.getUsers();
@@ -41,6 +42,7 @@ public class UserRestController
 
 
     // add mapping for POST /users - add new user
+    @CrossOrigin
     @PostMapping("/users")
     public User saveUser(@RequestBody User theUser){
         // also just in case the pass an id in JSON ... set id to 0
