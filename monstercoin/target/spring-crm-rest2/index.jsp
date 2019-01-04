@@ -1,5 +1,4 @@
 <%@ taglib prefix="th" uri="http://www.springframework.org/tags/form" %>
-<%@ page import="monstercoin.config.DemoAppConfig" %>
 <html>
 <body>
 
@@ -15,9 +14,7 @@
 
 <br><br>
 
-<%
-    out.println(DemoAppConfig.scheduleFixedDelayTask());
-%>
+
 
 </body>
 </html>

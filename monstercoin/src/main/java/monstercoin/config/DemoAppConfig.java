@@ -2,6 +2,7 @@ package monstercoin.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import monstercoin.coinbot.Coinbot;
+import monstercoin.service.CoinbotService;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -31,8 +32,8 @@ import java.util.logging.Logger;
 @EnableScheduling
 @ComponentScan("monstercoin")
 @PropertySource({ "classpath:persistence-mysql.properties" })
-public class DemoAppConfig implements WebMvcConfigurer {
-
+public class DemoAppConfig implements WebMvcConfigurer
+{
 	@Scheduled(fixedRate = 5000)
 	public static long scheduleFixedDelayTask() throws IOException {
 		Coinbot.request();

@@ -24,6 +24,15 @@ public class CryptoCurrency
     @Column(name = "symbol")
     private String symbol;
 
+    @Column(name = "rank")
+    private int rank;
+
+    @Column(name = "circulating_supply")
+    private long circulating_supply;
+
+    @Column(name = "max_supply")
+    private long max_supply;
+
     @Column(name = "last_updated")
     private String last_updated;
 
@@ -60,6 +69,30 @@ public class CryptoCurrency
         this.symbol = symbol;
     }
 
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    public long getCirculating_supply() {
+        return circulating_supply;
+    }
+
+    public void setCirculating_supply(long circulating_supply) {
+        this.circulating_supply = circulating_supply;
+    }
+
+    public long getMax_supply() {
+        return max_supply;
+    }
+
+    public void setMax_supply(long max_supply) {
+        this.max_supply = max_supply;
+    }
+
     public String getLast_updated() {
         return last_updated;
     }
@@ -82,7 +115,11 @@ public class CryptoCurrency
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", symbol='" + symbol + '\'' +
+                ", rank='" + rank + '\'' +
+                ", circulating_supply=" + circulating_supply +
+                ", max_supply=" + max_supply +
                 ", last_updated='" + last_updated + '\'' +
+                ", quotes=" + quotes +
                 '}';
     }
 
@@ -93,6 +130,7 @@ public class CryptoCurrency
         }
 
         quotes.add(tempQuote);
+        setQuotes(quotes);
 
         tempQuote.setCryptoCurrency(this);
     }

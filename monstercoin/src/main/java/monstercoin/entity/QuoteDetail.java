@@ -170,11 +170,11 @@ public class QuoteDetail
         this.ath_date = ath_date;
     }
 
-    public double getPercent_drom_price_ath() {
+    public double getPercent_from_price_ath() {
         return percent_from_price_ath;
     }
 
-    public void setPercent_drom_price_ath(double percent_drom_price_ath) {
+    public void setPercent_from_price_ath(double percent_drom_price_ath) {
         this.percent_from_price_ath = percent_drom_price_ath;
     }
 
