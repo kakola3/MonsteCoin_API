@@ -2,6 +2,9 @@ package monstercoin.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import monstercoin.coinbot.Coinbot;
+import monstercoin.entity.CryptoCurrency;
+import monstercoin.entity.Quote;
+import monstercoin.entity.QuoteDetail;
 import monstercoin.service.CoinbotService;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +37,20 @@ import java.util.logging.Logger;
 @PropertySource({ "classpath:persistence-mysql.properties" })
 public class DemoAppConfig implements WebMvcConfigurer
 {
+	StringBuffer content;
+	QuoteDetail quoteDetail = new QuoteDetail();
+	Quote quote = new Quote();
+	CryptoCurrency cryptoCurrency = new CryptoCurrency();
+	Coinbot coinbot = new Coinbot();
+
 	@Scheduled(fixedRate = 5000)
-	public static long scheduleFixedDelayTask() throws IOException {
-		Coinbot.request();
+	public long scheduleFixedDelayTask() throws IOException {
+		content = Coinbot.request();
+		quoteDetail = Coinbot.quoteDetail(content);
+		quote = Coinbot.quote(content, quoteDetail);
+		cryptoCurrency = Coinbot.cryptoCurrency(content, quote);
+		coinbot.contentOperations(cryptoCurrency, quote, quoteDetail);
+
 		long value = System.currentTimeMillis() / 1000;
 
 		return value;
