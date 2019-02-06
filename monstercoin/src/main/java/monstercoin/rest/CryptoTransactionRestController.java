@@ -44,4 +44,11 @@ public class CryptoTransactionRestController
 
         }else return 1;
     }
+
+    @CrossOrigin
+    @GetMapping("/delete-transaction")
+    public int deleteTransaction(@Valid @RequestBody CryptoTransaction cryptoTransaction, BindingResult bindingResult){
+
+        return 999;
+    }
 }

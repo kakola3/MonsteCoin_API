@@ -2,7 +2,9 @@ package monstercoin.rest;
 
 import monstercoin.dao.UserDAO;
 import monstercoin.entity.User;
+import monstercoin.entity.Wallet;
 import monstercoin.service.UserService;
+import monstercoin.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,9 @@ public class UserRestController
     // autowire the UserService
     @Autowired
     private UserService userService;
+
+    @Autowired
+    WalletService walletService;
 
     @CrossOrigin
     @PutMapping("/uuu")
@@ -64,6 +69,11 @@ public class UserRestController
                 theUser.setId(0);
                 theUser.setBallance_account(10000);
                 userService.saveUser(theUser);
+                System.out.println("theUser.getId(): " + theUser.getId());
+
+                Wallet wallet = new Wallet(theUser.getId(), 0, 0, 0, 0, 0);
+                walletService.createWalletForNewUser(wallet);
+
                 //return theUser;
                 return 0;
             }

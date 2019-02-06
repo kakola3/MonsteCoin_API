@@ -17,6 +17,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class Coinbot {
@@ -186,6 +187,28 @@ public class Coinbot {
     public void runningCoinBot(){
         List<CryptoTransaction> cryptoTransactions = cryptoTransactionService.getTransactions();    // all transactions from dataBase
         List<QuoteDetail> quoteDetails = quoteDetailService.getQuoteDetails();  // all quoteDetails from dataBase
+
+
+        for (CryptoTransaction cryptoTransaction:
+                cryptoTransactions) {
+            if (cryptoTransaction.getCurrency().equals("bitcoin")){
+                if((cryptoTransaction.getPrice() <= quoteDetails.get(0).getPrice()) && cryptoTransaction.getAction().equals("buy")){
+                    System.out.println("Bitcoin bla bla bla");
+
+                }else {
+                    System.out.println("Bitcoin is dead");
+                }
+            }
+            else if(cryptoTransaction.getCurrency().equals("ethereum")){
+            }
+            else if(cryptoTransaction.getCurrency().equals("litecoin")){
+            }
+            else if(cryptoTransaction.getCurrency().equals("xrp")){
+            }
+            else if(cryptoTransaction.getCurrency().equals("eos")){
+            }
+        }
+
 
     }
 }

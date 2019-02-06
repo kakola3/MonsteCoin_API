@@ -58,6 +58,7 @@ public class DemoAppConfig implements WebMvcConfigurer
 			System.out.println("QUOTE_DETAIL IN CONFIG: " + quoteDetail.toString());
 			Coinbot coinbot = coinbot();
 			coinbot.contentOperations(cryptoCurrency, quote, quoteDetail, i+1); // i+1 because id's in database are numbered from 1 not 0
+			coinbot.runningCoinBot();
 		}
 //		quote = Coinbot.quote(content, quoteDetail);
 //		System.out.println("QUOTE IN CONFIG: " + quote.toString());

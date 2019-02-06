@@ -16,6 +16,7 @@ public class CryptoTransactionServiceImpl implements CryptoTransactionService
     CryptoTransactionDAO cryptoTransactionDAO;
 
     @Override
+    @Transactional
     public List<CryptoTransaction> getTransactions() {
         return cryptoTransactionDAO.getTransactions();
     }

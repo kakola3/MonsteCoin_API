@@ -7,12 +7,25 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class QuoteDetailImpl implements QuoteDetailDAO
 {
     // need to inject the session factory
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Override
+    public List<QuoteDetail> getQuoteDetails() {
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        Query<QuoteDetail> theQuery = currentSession.createQuery("from QuoteDetail", QuoteDetail.class);
+
+        List<QuoteDetail> quoteDetails = theQuery.getResultList();
+
+        return quoteDetails;
+    }
 
     @Override
     public void saveQuoteDetail(QuoteDetail quoteDetail, int i) {
