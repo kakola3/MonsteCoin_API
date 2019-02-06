@@ -2,14 +2,13 @@ package monstercoin.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import monstercoin.coinbot.Coinbot;
+import monstercoin.dao.UserDAOImpl;
 import monstercoin.entity.CryptoCurrency;
 import monstercoin.entity.Quote;
 import monstercoin.entity.QuoteDetail;
-import monstercoin.service.CoinbotService;
+import monstercoin.entity.User;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -37,19 +36,33 @@ import java.util.logging.Logger;
 @PropertySource({ "classpath:persistence-mysql.properties" })
 public class DemoAppConfig implements WebMvcConfigurer
 {
-	StringBuffer content;
+	StringBuffer[] content;
 	QuoteDetail quoteDetail = new QuoteDetail();
 	Quote quote = new Quote();
 	CryptoCurrency cryptoCurrency = new CryptoCurrency();
-	Coinbot coinbot = new Coinbot();
+	//Coinbot coinbot = new Coinbot();
 
-	@Scheduled(fixedRate = 5000)
+	@Bean
+	public Coinbot coinbot(){
+		Coinbot coinbot = new Coinbot();
+
+		return  coinbot;
+	}
+
+	@Scheduled(fixedRate = 300000)
 	public long scheduleFixedDelayTask() throws IOException {
 		content = Coinbot.request();
-		quoteDetail = Coinbot.quoteDetail(content);
-		quote = Coinbot.quote(content, quoteDetail);
-		cryptoCurrency = Coinbot.cryptoCurrency(content, quote);
-		coinbot.contentOperations(cryptoCurrency, quote, quoteDetail);
+		System.out.println("CONTENT IN CONFIG: " + content.toString());
+		for (int i=0; i<content.length; i++) {
+			quoteDetail = Coinbot.quoteDetail(content[i]);
+			System.out.println("QUOTE_DETAIL IN CONFIG: " + quoteDetail.toString());
+			Coinbot coinbot = coinbot();
+			coinbot.contentOperations(cryptoCurrency, quote, quoteDetail, i+1); // i+1 because id's in database are numbered from 1 not 0
+		}
+//		quote = Coinbot.quote(content, quoteDetail);
+//		System.out.println("QUOTE IN CONFIG: " + quote.toString());
+//		cryptoCurrency = Coinbot.cryptoCurrency(content, quote);
+//		System.out.println("CRYPTOCURRENCY IN CONFIG: " + cryptoCurrency.toString());
 
 		long value = System.currentTimeMillis() / 1000;
 

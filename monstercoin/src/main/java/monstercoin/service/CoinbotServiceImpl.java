@@ -9,6 +9,7 @@ import monstercoin.entity.Quote;
 import monstercoin.entity.QuoteDetail;
 import monstercoin.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,31 +19,31 @@ import java.util.List;
 public class CoinbotServiceImpl implements CoinbotService
 {
     // need to inject CryptoCurrency, Quote and QuoteDetail DAOs
-    @Autowired
-    private CryptoCurrencyDAO cryptoCurrencyDAO;
-
-    @Autowired
-    private QuoteDAO quoteDAO;
+//    @Autowired
+//    private CryptoCurrencyDAO cryptoCurrencyDAO;
+//
+//    @Autowired
+//    private QuoteDAO quoteDAO;
 
     @Autowired
     private QuoteDetailDAO quoteDetailDAO;
 
 
-    @Override
-    @Transactional
-    public void saveCryptoCurrency(CryptoCurrency cryptoCurrency) {
-        cryptoCurrencyDAO.saveCryptoCurrency(cryptoCurrency);
-    }
+//    @Override
+//    @Transactional
+//    public void saveCryptoCurrency(CryptoCurrency cryptoCurrency) {
+//        cryptoCurrencyDAO.saveCryptoCurrency(cryptoCurrency);
+//    }
+//
+//    @Override
+//    @Transactional
+//    public void saveQuote(Quote quote) {
+//        quoteDAO.saveQuote(quote);
+//    }
 
     @Override
     @Transactional
-    public void saveQuote(Quote quote) {
-        quoteDAO.saveQuote(quote);
-    }
-
-    @Override
-    @Transactional
-    public void saveQuoteDetail(QuoteDetail quoteDetail) {
-        quoteDetailDAO.saveQuoteDetail(quoteDetail);
+    public void saveQuoteDetail(QuoteDetail quoteDetail, int i) {
+        quoteDetailDAO.saveQuoteDetail(quoteDetail, i);
     }
 }

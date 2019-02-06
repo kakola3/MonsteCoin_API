@@ -2,7 +2,11 @@ package monstercoin.dao;
 
 import monstercoin.entity.QuoteDetail;
 
+import java.util.List;
+
 public interface QuoteDetailDAO
 {
-    public void saveQuoteDetail(QuoteDetail quoteDetail);
+    public List<QuoteDetail> getQuoteDetails();
+
+    public void saveQuoteDetail(QuoteDetail quoteDetail, int i);
 }

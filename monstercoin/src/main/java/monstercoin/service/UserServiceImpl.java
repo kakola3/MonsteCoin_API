@@ -30,10 +30,27 @@ public class UserServiceImpl implements UserService
         return userDAO.getUser(login, password);
     }
 
-
     @Override
     @Transactional
     public void saveUser(User theUser) {
         userDAO.saveUser(theUser);
+    }
+
+    @Override
+    @Transactional
+    public int userExist(User theUser){
+        return userDAO.userExist(theUser);
+    }
+
+    @Override
+    @Transactional
+    public void updateAccountBallance(User user, double ballance) {
+        userDAO.updateAccountBallance(user, ballance);
+    }
+
+    @Override
+    @Transactional
+    public double getUserBallance(int id) {
+        return userDAO.getUserBallance(id);
     }
 }

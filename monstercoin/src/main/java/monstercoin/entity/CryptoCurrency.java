@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-// One to many one xd dodac murzyn
-
 @Entity
 @Table(name = "crypto_currency")
 public class CryptoCurrency
@@ -18,13 +16,13 @@ public class CryptoCurrency
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "`name`")
     private String name;
 
     @Column(name = "symbol")
     private String symbol;
 
-    @Column(name = "rank")
+    @Column(name = "`rank`")
     private int rank;
 
     @Column(name = "circulating_supply")
@@ -119,7 +117,6 @@ public class CryptoCurrency
                 ", circulating_supply=" + circulating_supply +
                 ", max_supply=" + max_supply +
                 ", last_updated='" + last_updated + '\'' +
-                ", quotes=" + quotes +
                 '}';
     }
 

@@ -3,8 +3,6 @@ package monstercoin.entity;
 import javax.persistence.*;
 
 
-// One to many one xd dodac murzyn
-
 @Entity
 @Table(name = "quote")
 public class Quote
@@ -66,8 +64,6 @@ public class Quote
         return "Quote{" +
                 "id=" + id +
                 ", fiat_symbol='" + fiat_symbol + '\'' +
-                ", quoteDetail=" + quoteDetail +
-                ", cryptoCurrency=" + cryptoCurrency +
                 '}';
     }
 }

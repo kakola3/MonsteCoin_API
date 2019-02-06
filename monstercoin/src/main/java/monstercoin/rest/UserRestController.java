@@ -1,10 +1,13 @@
 package monstercoin.rest;
 
+import monstercoin.dao.UserDAO;
 import monstercoin.entity.User;
 import monstercoin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -14,6 +17,14 @@ public class UserRestController
     // autowire the UserService
     @Autowired
     private UserService userService;
+
+    @CrossOrigin
+    @PutMapping("/uuu")
+    public void updateAccountBallance(){
+        User user = new User();
+        user.setId(1);
+        userService.updateAccountBallance(user, 500);
+    }
 
     // add mapping for GET /users
     @CrossOrigin
@@ -44,13 +55,37 @@ public class UserRestController
     // add mapping for POST /users - add new user
     @CrossOrigin
     @PostMapping("/users")
-    public User saveUser(@RequestBody User theUser){
+    public int saveUser(@Valid @RequestBody User theUser, BindingResult bindingResult){//@RequestBody User theUser
         // also just in case the pass an id in JSON ... set id to 0
         // this is force a save of new item ... instead of update
-        theUser.setId(0);
+        if (!bindingResult.hasErrors()){
+            if(userService.userExist(theUser) == 0){
+                System.out.println("userService.userExist-Line56: " + userService.userExist(theUser));
+                theUser.setId(0);
+                theUser.setBallance_account(10000);
+                userService.saveUser(theUser);
+                //return theUser;
+                return 0;
+            }
+            else {
+                System.out.println("userService.userExist-Line63: " + userService.userExist(theUser));
+                return userService.userExist(theUser);
+            }
 
-        userService.saveUser(theUser);
-        return theUser;
-    }
+        }
+        else{
+            System.out.println(bindingResult.toString());
+            if(bindingResult.toString().contains("login")){
+                return 4;
+            }
+            else if (bindingResult.toString().contains("password")){
+                return 5;
+            }
+            else if (bindingResult.toString().contains("email")){
+                return 6;
+            }
+            else return 666; // unknown field
+        }
+}
 
 }

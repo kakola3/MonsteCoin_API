@@ -11,4 +11,10 @@ public interface UserService
     public void saveUser(User theUser);
 
     public List<User> getUsers();
+
+    public int userExist(User theUser);
+
+    public void updateAccountBallance(User user, double ballance);
+
+    public double getUserBallance(int id);
 }
