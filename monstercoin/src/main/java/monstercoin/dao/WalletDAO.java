@@ -8,5 +8,5 @@ public interface WalletDAO
 
     public Wallet getWalletPerUser(int user_id);
 
-    public void updateWallet(int user_id);
+    public void updateWallet(int user_id, String cryptoToUpdate, double cryptoAmount);
 }

@@ -1,12 +1,10 @@
 package monstercoin.coinbot;
 
-import monstercoin.entity.CryptoCurrency;
-import monstercoin.entity.CryptoTransaction;
-import monstercoin.entity.Quote;
-import monstercoin.entity.QuoteDetail;
+import monstercoin.entity.*;
 import monstercoin.service.CoinbotService;
 import monstercoin.service.CryptoTransactionService;
 import monstercoin.service.QuoteDetailService;
+import monstercoin.service.WalletService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,6 +32,9 @@ public class Coinbot {
 
     @Autowired
     QuoteDetailService quoteDetailService;
+
+    @Autowired
+    WalletService walletService;
 
     public static StringBuffer[] request() throws IOException {
         StringBuffer[] cryptoContentArray = new StringBuffer[5];
@@ -191,10 +192,13 @@ public class Coinbot {
 
         for (CryptoTransaction cryptoTransaction:
                 cryptoTransactions) {
-            if (cryptoTransaction.getCurrency().equals("bitcoin")){
-                if((cryptoTransaction.getPrice() <= quoteDetails.get(0).getPrice()) && cryptoTransaction.getAction().equals("buy")){
-                    System.out.println("Bitcoin bla bla bla");
-
+            if (cryptoTransaction.getCurrency().equals("bitcoin") && cryptoTransaction.getOrder_status().equals("active")){
+                if((cryptoTransaction.getPrice() >= quoteDetails.get(0).getPrice()) && cryptoTransaction.getAction().equals("buy")){
+                    System.out.println("Bitcoin has been bought!");
+                    System.out.println("theWalletBitcoinAmount: " + walletService.getWalletPerUser(cryptoTransaction.getUser_id()).getBitcoin_amount());
+                    double theWalletBitcoinAmount = walletService.getWalletPerUser(cryptoTransaction.getUser_id()).getBitcoin_amount();
+                    cryptoTransactionService.updateOrderStatus(cryptoTransaction);
+                    walletService.updateWallet(cryptoTransaction.getUser_id(), "bitcoin", theWalletBitcoinAmount+cryptoTransaction.getAmount());
                 }else {
                     System.out.println("Bitcoin is dead");
                 }

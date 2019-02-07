@@ -52,5 +52,6 @@ public class CryptoTransactionDAOImpl implements CryptoTransactionDAO
                 " where id = :transaction_id");
         theQuery.setParameter("orderStatus", "inactive");
         theQuery.setParameter("transaction_id", cryptoTransaction.getId());
+        int result = theQuery.executeUpdate();
     }
 }

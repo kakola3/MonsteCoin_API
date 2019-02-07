@@ -13,34 +13,28 @@ public class Wallet
     private int id;
 
     @Column(name = "user_id")
-    @NotNull
     private int user_id;
 
     @Column(name = "bitcoin_amount")
-    @NotNull
     private double bitcoin_amount;
 
     @Column(name = "ethereum_amount")
-    @NotNull
     private double ethereum_amount;
 
     @Column(name = "litecoin_amount")
-    @NotNull
     private double litecoin_amount;
 
     @Column(name = "xrp_amount")
-    @NotNull
     private double xrp_amount;
 
     @Column(name = "eos_amount")
-    @NotNull
     private double eos_amount;
 
     public Wallet(){
 
     }
 
-    public Wallet(@NotNull int user_id, @NotNull double bitcoin_amount, @NotNull double ethereum_amount, @NotNull double litecoin_amount, @NotNull double xrp_amount, @NotNull double eos_amount) {
+    public Wallet(@NotNull int user_id, double bitcoin_amount, double ethereum_amount, double litecoin_amount, double xrp_amount, double eos_amount) {
         this.user_id = user_id;
         this.bitcoin_amount = bitcoin_amount;
         this.ethereum_amount = ethereum_amount;
