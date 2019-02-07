@@ -44,8 +44,8 @@ public class UserServiceImpl implements UserService
 
     @Override
     @Transactional
-    public void updateAccountBallance(User user, double ballance) {
-        userDAO.updateAccountBallance(user, ballance);
+    public void updateAccountBallance(int user_id, double ballance) {
+        userDAO.updateAccountBallance(user_id, ballance);
     }
 
     @Override

@@ -14,7 +14,7 @@ public interface UserDAO
 
     public int userExist(User theUser);
 
-    public void updateAccountBallance(User user, double ballance);
+    public void updateAccountBallance(int user_id, double ballance);
 
     public double getUserBallance(int id);
 }

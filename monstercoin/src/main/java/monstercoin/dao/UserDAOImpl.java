@@ -116,18 +116,21 @@ public class UserDAOImpl implements UserDAO
     }
 
     @Override
-    public void updateAccountBallance(User user, double ballance) {
+    public void updateAccountBallance(int user_id, double ballance) {
 
         Session currentSession = sessionFactory.getCurrentSession();
 
-        double beforeTransactionBallance = user.getBallance_account();
-        System.out.println("beforeTransactionBallance: " + beforeTransactionBallance);
+//        User theUser = new User();
+//        theUser.setId(user_id);
+//
+//        double beforeTransactionBallance = theUser.getBallance_account();
+//        System.out.println("beforeTransactionBallance: " + beforeTransactionBallance);
 
         Query<User> theQuery =
                 currentSession.createQuery("update User set balance_account = :ballance" +
                         " where id = :user_id");
         theQuery.setParameter("ballance", ballance);
-        theQuery.setParameter("user_id", user.getId());
+        theQuery.setParameter("user_id", user_id);
         int result = theQuery.executeUpdate();
     }
 

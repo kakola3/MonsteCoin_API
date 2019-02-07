@@ -57,7 +57,38 @@ public class WalletDAOImpl implements WalletDAO
             int result = theQuery.executeUpdate();
             System.out.println("wallet: user_id: " + user_id + " and cryptoToUpdate: |" + cryptoToUpdate + "| and cryptoAmount: " + cryptoAmount);
         }
-
+        else if(cryptoToUpdate.equals("ethereum")){
+            Query<Wallet> theQuery = currentSession.createQuery("update Wallet set ethereum_amount = :cryptoAmount" +
+                    " where user_id = :user_id");
+            theQuery.setParameter("cryptoAmount", cryptoAmount);
+            theQuery.setParameter("user_id", user_id);
+            int result = theQuery.executeUpdate();
+            System.out.println("wallet: user_id: " + user_id + " and cryptoToUpdate: |" + cryptoToUpdate + "| and cryptoAmount: " + cryptoAmount);
+        }
+        else if(cryptoToUpdate.equals("litecoin")){
+            Query<Wallet> theQuery = currentSession.createQuery("update Wallet set litecoin_amount = :cryptoAmount" +
+                    " where user_id = :user_id");
+            theQuery.setParameter("cryptoAmount", cryptoAmount);
+            theQuery.setParameter("user_id", user_id);
+            int result = theQuery.executeUpdate();
+            System.out.println("wallet: user_id: " + user_id + " and cryptoToUpdate: |" + cryptoToUpdate + "| and cryptoAmount: " + cryptoAmount);
+        }
+        else if(cryptoToUpdate.equals("xrp")){
+            Query<Wallet> theQuery = currentSession.createQuery("update Wallet set xrp_amount = :cryptoAmount" +
+                    " where user_id = :user_id");
+            theQuery.setParameter("cryptoAmount", cryptoAmount);
+            theQuery.setParameter("user_id", user_id);
+            int result = theQuery.executeUpdate();
+            System.out.println("wallet: user_id: " + user_id + " and cryptoToUpdate: |" + cryptoToUpdate + "| and cryptoAmount: " + cryptoAmount);
+        }
+        else if(cryptoToUpdate.equals("eos")){
+            Query<Wallet> theQuery = currentSession.createQuery("update Wallet set eos_amount = :cryptoAmount" +
+                    " where user_id = :user_id");
+            theQuery.setParameter("cryptoAmount", cryptoAmount);
+            theQuery.setParameter("user_id", user_id);
+            int result = theQuery.executeUpdate();
+            System.out.println("wallet: user_id: " + user_id + " and cryptoToUpdate: |" + cryptoToUpdate + "| and cryptoAmount: " + cryptoAmount);
+        }
 
 
     }

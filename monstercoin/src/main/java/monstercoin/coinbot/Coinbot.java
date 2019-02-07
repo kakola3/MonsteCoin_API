@@ -1,10 +1,7 @@
 package monstercoin.coinbot;
 
 import monstercoin.entity.*;
-import monstercoin.service.CoinbotService;
-import monstercoin.service.CryptoTransactionService;
-import monstercoin.service.QuoteDetailService;
-import monstercoin.service.WalletService;
+import monstercoin.service.*;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -35,6 +32,9 @@ public class Coinbot {
 
     @Autowired
     WalletService walletService;
+
+    @Autowired
+    UserService userService;
 
     public static StringBuffer[] request() throws IOException {
         StringBuffer[] cryptoContentArray = new StringBuffer[5];
@@ -199,17 +199,78 @@ public class Coinbot {
                     double theWalletBitcoinAmount = walletService.getWalletPerUser(cryptoTransaction.getUser_id()).getBitcoin_amount();
                     cryptoTransactionService.updateOrderStatus(cryptoTransaction);
                     walletService.updateWallet(cryptoTransaction.getUser_id(), "bitcoin", theWalletBitcoinAmount+cryptoTransaction.getAmount());
-                }else {
+                }else if((cryptoTransaction.getPrice() < quoteDetails.get(0).getPrice()) && cryptoTransaction.getAction().equals("sell")){
                     System.out.println("Bitcoin is dead");
+                    cryptoTransactionService.updateOrderStatus(cryptoTransaction);
+                    double theWalletBitcoinAmount = walletService.getWalletPerUser(cryptoTransaction.getUser_id()).getBitcoin_amount();
+                    walletService.updateWallet(cryptoTransaction.getUser_id(), "bitcoin", theWalletBitcoinAmount-cryptoTransaction.getAmount());
+                    double ballanceAccountAfterSellOrder = userService.getUserBallance(cryptoTransaction.getUser_id()) + (cryptoTransaction.getAmount() * cryptoTransaction.getPrice());
+                    userService.updateAccountBallance(cryptoTransaction.getUser_id(), ballanceAccountAfterSellOrder);
                 }
             }
             else if(cryptoTransaction.getCurrency().equals("ethereum")){
+                if((cryptoTransaction.getPrice() >= quoteDetails.get(0).getPrice()) && cryptoTransaction.getAction().equals("buy")){
+                    System.out.println("Ethereum has been bought!");
+                    System.out.println("theWalletEthereumAmount: " + walletService.getWalletPerUser(cryptoTransaction.getUser_id()).getEthereum_amount());
+                    double theWalletEthereumAmount = walletService.getWalletPerUser(cryptoTransaction.getUser_id()).getEthereum_amount();
+                    cryptoTransactionService.updateOrderStatus(cryptoTransaction);
+                    walletService.updateWallet(cryptoTransaction.getUser_id(), "ethereum", theWalletEthereumAmount+cryptoTransaction.getAmount());
+                }else if((cryptoTransaction.getPrice() < quoteDetails.get(0).getPrice()) && cryptoTransaction.getAction().equals("sell")){
+                    System.out.println("Ethereum is dead");
+                    cryptoTransactionService.updateOrderStatus(cryptoTransaction);
+                    double theWalletEthereumAmount = walletService.getWalletPerUser(cryptoTransaction.getUser_id()).getEthereum_amount();
+                    walletService.updateWallet(cryptoTransaction.getUser_id(), "ethereum", theWalletEthereumAmount-cryptoTransaction.getAmount());
+                    double ballanceAccountAfterSellOrder = userService.getUserBallance(cryptoTransaction.getUser_id()) + (cryptoTransaction.getAmount() * cryptoTransaction.getPrice());
+                    userService.updateAccountBallance(cryptoTransaction.getUser_id(), ballanceAccountAfterSellOrder);
+                }
             }
             else if(cryptoTransaction.getCurrency().equals("litecoin")){
+                if((cryptoTransaction.getPrice() >= quoteDetails.get(0).getPrice()) && cryptoTransaction.getAction().equals("buy")){
+                    System.out.println("Litecoin has been bought!");
+                    System.out.println("theWalletLitecoinAmount: " + walletService.getWalletPerUser(cryptoTransaction.getUser_id()).getLitecoin_amount());
+                    double theWalletLitecoinAmount = walletService.getWalletPerUser(cryptoTransaction.getUser_id()).getLitecoin_amount();
+                    cryptoTransactionService.updateOrderStatus(cryptoTransaction);
+                    walletService.updateWallet(cryptoTransaction.getUser_id(), "litecoin", theWalletLitecoinAmount+cryptoTransaction.getAmount());
+                }else if((cryptoTransaction.getPrice() < quoteDetails.get(0).getPrice()) && cryptoTransaction.getAction().equals("sell")){
+                    System.out.println("Litecoin is dead");
+                    cryptoTransactionService.updateOrderStatus(cryptoTransaction);
+                    double theWalletLitecoinAmount = walletService.getWalletPerUser(cryptoTransaction.getUser_id()).getLitecoin_amount();
+                    walletService.updateWallet(cryptoTransaction.getUser_id(), "litecoin", theWalletLitecoinAmount-cryptoTransaction.getAmount());
+                    double ballanceAccountAfterSellOrder = userService.getUserBallance(cryptoTransaction.getUser_id()) + (cryptoTransaction.getAmount() * cryptoTransaction.getPrice());
+                    userService.updateAccountBallance(cryptoTransaction.getUser_id(), ballanceAccountAfterSellOrder);
+                }
             }
             else if(cryptoTransaction.getCurrency().equals("xrp")){
+                if((cryptoTransaction.getPrice() >= quoteDetails.get(0).getPrice()) && cryptoTransaction.getAction().equals("buy")){
+                    System.out.println("XRP has been bought!");
+                    System.out.println("theXRPAmount: " + walletService.getWalletPerUser(cryptoTransaction.getUser_id()).getXrp_amount());
+                    double theXRPAmount = walletService.getWalletPerUser(cryptoTransaction.getUser_id()).getXrp_amount();
+                    cryptoTransactionService.updateOrderStatus(cryptoTransaction);
+                    walletService.updateWallet(cryptoTransaction.getUser_id(), "xrp", theXRPAmount+cryptoTransaction.getAmount());
+                }else if((cryptoTransaction.getPrice() < quoteDetails.get(0).getPrice()) && cryptoTransaction.getAction().equals("sell")){
+                    System.out.println("XRP is dead");
+                    cryptoTransactionService.updateOrderStatus(cryptoTransaction);
+                    double theXRPAmount = walletService.getWalletPerUser(cryptoTransaction.getUser_id()).getXrp_amount();
+                    walletService.updateWallet(cryptoTransaction.getUser_id(), "xrp", theXRPAmount-cryptoTransaction.getAmount());
+                    double ballanceAccountAfterSellOrder = userService.getUserBallance(cryptoTransaction.getUser_id()) + (cryptoTransaction.getAmount() * cryptoTransaction.getPrice());
+                    userService.updateAccountBallance(cryptoTransaction.getUser_id(), ballanceAccountAfterSellOrder);
+                }
             }
             else if(cryptoTransaction.getCurrency().equals("eos")){
+                if((cryptoTransaction.getPrice() >= quoteDetails.get(0).getPrice()) && cryptoTransaction.getAction().equals("buy")){
+                    System.out.println("EOS has been bought!");
+                    System.out.println("theEOSAmount: " + walletService.getWalletPerUser(cryptoTransaction.getUser_id()).getEos_amount());
+                    double theEOSAmount = walletService.getWalletPerUser(cryptoTransaction.getUser_id()).getEos_amount();
+                    cryptoTransactionService.updateOrderStatus(cryptoTransaction);
+                    walletService.updateWallet(cryptoTransaction.getUser_id(), "eos", theEOSAmount+cryptoTransaction.getAmount());
+                }else if((cryptoTransaction.getPrice() < quoteDetails.get(0).getPrice()) && cryptoTransaction.getAction().equals("sell")){
+                    System.out.println("EOS is dead");
+                    cryptoTransactionService.updateOrderStatus(cryptoTransaction);
+                    double theEOSAmount = walletService.getWalletPerUser(cryptoTransaction.getUser_id()).getEos_amount();
+                    walletService.updateWallet(cryptoTransaction.getUser_id(), "eos", theEOSAmount-cryptoTransaction.getAmount());
+                    double ballanceAccountAfterSellOrder = userService.getUserBallance(cryptoTransaction.getUser_id()) + (cryptoTransaction.getAmount() * cryptoTransaction.getPrice());
+                    userService.updateAccountBallance(cryptoTransaction.getUser_id(), ballanceAccountAfterSellOrder);
+                }
             }
         }
 

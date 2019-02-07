@@ -23,14 +23,6 @@ public class UserRestController
     @Autowired
     WalletService walletService;
 
-    @CrossOrigin
-    @PutMapping("/uuu")
-    public void updateAccountBallance(){
-        User user = new User();
-        user.setId(1);
-        userService.updateAccountBallance(user, 500);
-    }
-
     // add mapping for GET /users
     @CrossOrigin
     @GetMapping("/users")
