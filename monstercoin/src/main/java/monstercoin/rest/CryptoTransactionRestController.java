@@ -109,8 +109,8 @@ public class CryptoTransactionRestController
 
     @CrossOrigin
     @GetMapping("/delete-transaction")
-    public int deleteTransaction(@Valid @RequestBody CryptoTransaction cryptoTransaction, BindingResult bindingResult){
+    public void deleteTransaction(@RequestParam("id") int id){
+        cryptoTransactionService.deleteTransaction(id);
 
-        return 999;
     }
 }

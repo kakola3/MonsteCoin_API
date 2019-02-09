@@ -15,4 +15,6 @@ public interface CryptoTransactionService
     public void saveTransaction(CryptoTransaction cryptoTransaction);
 
     public void updateOrderStatus(CryptoTransaction cryptoTransaction);
+
+    public void deleteTransaction(int cryptoTransaction_id);
 }

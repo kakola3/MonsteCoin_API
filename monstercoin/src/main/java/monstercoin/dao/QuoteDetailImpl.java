@@ -68,4 +68,18 @@ public class QuoteDetailImpl implements QuoteDetailDAO
         //currentSession.saveOrUpdate(quoteDetail);
     }
 
+    @Override
+    public double getPrice(int id) {
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        Query theQuery = currentSession.createQuery("from QuoteDetail where id = :id");
+        theQuery.setParameter("id", id);
+
+        QuoteDetail quoteDetail = (QuoteDetail) theQuery.getSingleResult();
+
+        double price = quoteDetail.getPrice();
+
+        return price;
+    }
+
 }

@@ -80,4 +80,14 @@ public class CryptoTransactionDAOImpl implements CryptoTransactionDAO
         theQuery.setParameter("transaction_id", cryptoTransaction.getId());
         int result = theQuery.executeUpdate();
     }
+
+    @Override
+    public void deleteTransaction(int cryptoTransaction_id) {
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        Query theQuery = currentSession.createQuery("delete from CryptoTransaction where id = :cryptoTransaction_id");
+        theQuery.setParameter("cryptoTransaction_id", cryptoTransaction_id);
+
+        int result = theQuery.executeUpdate();
+    }
 }

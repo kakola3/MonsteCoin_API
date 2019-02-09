@@ -10,4 +10,6 @@ public interface QuoteDetailService
     public List<QuoteDetail> getQuoteDetails();
 
     public void saveQuoteDetail(QuoteDetail quoteDetail, int i);
+
+    public double getPrice(int id);
 }

@@ -22,6 +22,12 @@ public class QuoteDetailServiceImpl implements QuoteDetailService
 
     @Override
     @Transactional
+    public double getPrice(int id) {
+       return quoteDetailDAO.getPrice(id);
+    }
+
+    @Override
+    @Transactional
     public List<QuoteDetail> getQuoteDetails() {
         return quoteDetailDAO.getQuoteDetails();
     }

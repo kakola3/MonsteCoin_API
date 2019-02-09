@@ -44,4 +44,9 @@ public class CryptoTransactionServiceImpl implements CryptoTransactionService
     public void updateOrderStatus(CryptoTransaction cryptoTransaction) {
         cryptoTransactionDAO.updateOrderStatus(cryptoTransaction);
     }
+
+    @Override
+    public void deleteTransaction(int cryptoTransaction_id) {
+        cryptoTransactionDAO.deleteTransaction(cryptoTransaction_id);
+    }
 }
