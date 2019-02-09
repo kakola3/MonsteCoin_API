@@ -35,6 +35,32 @@ public class CryptoTransactionDAOImpl implements CryptoTransactionDAO
     }
 
     @Override
+    public List<CryptoTransaction> activeTransactionsPerUser(int user_id) {
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        Query<CryptoTransaction> theQuery = currentSession.createQuery("from CryptoTransaction where user_id = :user_id" +
+                " and order_status = 'active'");
+        theQuery.setParameter("user_id", user_id);
+
+        List<CryptoTransaction> activeTransactionsPerUser = theQuery.getResultList();
+
+        return activeTransactionsPerUser;
+    }
+
+    @Override
+    public List<CryptoTransaction> inactiveTransactionsPerUser(int user_id) {
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        Query<CryptoTransaction> theQuery = currentSession.createQuery("from CryptoTransaction where user_id = :user_id" +
+                " and order_status = 'inactive'");
+        theQuery.setParameter("user_id", user_id);
+
+        List<CryptoTransaction> inactiveTransactionsPerUser = theQuery.getResultList();
+
+        return inactiveTransactionsPerUser;
+    }
+
+    @Override
     public void saveTransaction(CryptoTransaction cryptoTransaction) {
         // get current hibernate session
         Session currentSession = sessionFactory.getCurrentSession();

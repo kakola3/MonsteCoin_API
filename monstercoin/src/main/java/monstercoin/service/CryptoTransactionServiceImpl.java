@@ -23,6 +23,18 @@ public class CryptoTransactionServiceImpl implements CryptoTransactionService
 
     @Override
     @Transactional
+    public List<CryptoTransaction> activeTransactionsPerUser(int user_id) {
+        return cryptoTransactionDAO.activeTransactionsPerUser(user_id);
+    }
+
+    @Override
+    @Transactional
+    public List<CryptoTransaction> inactiveTransactionsPerUser(int user_id) {
+        return cryptoTransactionDAO.inactiveTransactionsPerUser(user_id);
+    }
+
+    @Override
+    @Transactional
     public void saveTransaction(CryptoTransaction cryptoTransaction) {
         cryptoTransactionDAO.saveTransaction(cryptoTransaction);
     }

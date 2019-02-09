@@ -1,12 +1,12 @@
 package monstercoin.rest;
 
+import com.google.gson.Gson;
 import monstercoin.entity.CryptoTransaction;
 import monstercoin.entity.User;
 import monstercoin.service.CryptoTransactionService;
 import monstercoin.service.UserService;
 import monstercoin.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,38 +28,25 @@ public class CryptoTransactionRestController
 
     @CrossOrigin
     @GetMapping("/active-transactions")
-    public List<CryptoTransaction> activeTransactionsPerUser(@RequestBody int user_id){
-        List<CryptoTransaction> allTransactions = cryptoTransactionService.getTransactions();
-        List<CryptoTransaction> activeTransactionsPerUser = null;
+    public String activeTransactionsPerUser(@RequestParam("user_id") int user_id){
 
-        for (CryptoTransaction cryptoTransaction:
-                allTransactions) {
-            if(cryptoTransaction.getUser_id() == user_id){
-                if (cryptoTransaction.getOrder_status().equals("active")) {
-                    activeTransactionsPerUser.add(cryptoTransaction);
-                }
-            }
-        }
-        System.out.println("for user_id = " + user_id + "  activeTransactionsPerUser: " + activeTransactionsPerUser);
-        return activeTransactionsPerUser;
+        List<CryptoTransaction> activeTransactionsPerUser = cryptoTransactionService.activeTransactionsPerUser(user_id);
+
+        Gson gson = new Gson();
+        String active = gson.toJson(activeTransactionsPerUser);
+
+        return active;
     }
 
     @CrossOrigin
     @GetMapping("/inactive-transactions")
-    public List<CryptoTransaction> getInactiveTransactionsPerUser(@RequestParam (value = "user_id", required = true) int user_id) {
-        List<CryptoTransaction> allTransactions = cryptoTransactionService.getTransactions();
-        List<CryptoTransaction> inactiveTransactionsPerUser = null;
+    public String getInactiveTransactionsPerUser(@RequestParam("user_id") int user_id) {
+        List<CryptoTransaction> inactiveTransactionsPerUser = cryptoTransactionService.inactiveTransactionsPerUser(user_id);
 
-        for (CryptoTransaction cryptoTransaction:
-                allTransactions) {
-            if(cryptoTransaction.getUser_id() == user_id){
-                if (cryptoTransaction.getOrder_status().equals("inactive")) {
-                    inactiveTransactionsPerUser.add(cryptoTransaction);
-                }
-            }
-        }
-        System.out.println("for user_id = " + user_id + "  inactiveTransactionsPerUser: " + inactiveTransactionsPerUser);
-        return inactiveTransactionsPerUser;
+        Gson gson = new Gson();
+        String inactive = gson.toJson(inactiveTransactionsPerUser);
+
+        return inactive;
     }
 
     @CrossOrigin
