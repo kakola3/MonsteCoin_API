@@ -9,6 +9,8 @@ public interface CryptoTransactionDAO
 {
     public List<CryptoTransaction> getTransactions();
 
+    public CryptoTransaction getCryptoTransaction(int id);
+
     public List<CryptoTransaction> activeTransactionsPerUser(int user_id);
 
     public List<CryptoTransaction> inactiveTransactionsPerUser(int user_id);

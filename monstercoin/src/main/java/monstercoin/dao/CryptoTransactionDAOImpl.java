@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -32,6 +33,18 @@ public class CryptoTransactionDAOImpl implements CryptoTransactionDAO
 
         // return the results
         return cryptoTransactions;
+    }
+
+    @Override
+    public CryptoTransaction getCryptoTransaction(int id) {
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        Query theQuery = currentSession.createQuery("from CryptoTransaction where id = :id");
+        theQuery.setParameter("id", id);
+
+        CryptoTransaction cryptoTransaction = (CryptoTransaction) theQuery.getSingleResult();
+
+        return cryptoTransaction;
     }
 
     @Override

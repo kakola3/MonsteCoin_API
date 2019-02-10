@@ -109,8 +109,19 @@ public class CryptoTransactionRestController
 
     @CrossOrigin
     @GetMapping("/delete-transaction")
-    public void deleteTransaction(@RequestParam("id") int id){
-        cryptoTransactionService.deleteTransaction(id);
+    public int deleteTransaction(@RequestParam("id") int id){
+        if (id != 0) {
+            CryptoTransaction cryptoTransaction = cryptoTransactionService.getCryptoTransaction(id);
+            double userBallance = userService.getUserBallance(cryptoTransaction.getUser_id());
 
+            cryptoTransactionService.deleteTransaction(id);
+
+            if (cryptoTransaction.getAction().equals("buy")){
+                userService.updateAccountBallance(cryptoTransaction.getUser_id(), userBallance+(cryptoTransaction.getAmount()*cryptoTransaction.getPrice()));
+                return 0;
+            }
+            return 0;
+        }
+        else return 1;
     }
 }

@@ -23,6 +23,12 @@ public class CryptoTransactionServiceImpl implements CryptoTransactionService
 
     @Override
     @Transactional
+    public CryptoTransaction getCryptoTransaction(int id) {
+        return cryptoTransactionDAO.getCryptoTransaction(id);
+    }
+
+    @Override
+    @Transactional
     public List<CryptoTransaction> activeTransactionsPerUser(int user_id) {
         return cryptoTransactionDAO.activeTransactionsPerUser(user_id);
     }
@@ -46,6 +52,7 @@ public class CryptoTransactionServiceImpl implements CryptoTransactionService
     }
 
     @Override
+    @Transactional
     public void deleteTransaction(int cryptoTransaction_id) {
         cryptoTransactionDAO.deleteTransaction(cryptoTransaction_id);
     }
