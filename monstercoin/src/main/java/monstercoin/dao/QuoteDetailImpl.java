@@ -20,7 +20,7 @@ public class QuoteDetailImpl implements QuoteDetailDAO
     public List<QuoteDetail> getQuoteDetails() {
         Session currentSession = sessionFactory.getCurrentSession();
 
-        Query<QuoteDetail> theQuery = currentSession.createQuery("from QuoteDetail", QuoteDetail.class);
+        Query<QuoteDetail> theQuery = currentSession.createQuery("from QuoteDetail where id <= 5", QuoteDetail.class);
 
         List<QuoteDetail> quoteDetails = theQuery.getResultList();
 
