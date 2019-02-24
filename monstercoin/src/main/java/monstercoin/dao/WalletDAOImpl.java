@@ -1,5 +1,6 @@
 package monstercoin.dao;
 
+import javafx.stage.FileChooser;
 import monstercoin.entity.Wallet;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,6 +16,24 @@ public class WalletDAOImpl implements WalletDAO
     // need to inject the session factory
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Override
+    public List<Wallet> getWallets() {
+        // get the current hibernate session
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        // create a query  ... sort by last name
+        Query<Wallet> theQuery =
+                currentSession.createQuery("from Wallet",
+                        Wallet.class);
+
+        // execute query and get result list
+        List<Wallet> wallets = theQuery.getResultList();
+        System.out.println("users: |" + wallets + "|");
+
+        // return the results
+        return wallets;
+    }
 
     @Override
     public void createWalletForNewUser(Wallet wallet) {
@@ -92,4 +111,22 @@ public class WalletDAOImpl implements WalletDAO
 
 
     }
+
+    @Override
+    public void deleteWallet(int user_id) {
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        Query theQuery = currentSession.createQuery("delete from Wallet where user_id = :user_id");
+        theQuery.setParameter("user_id", user_id);
+
+        int result = theQuery.executeUpdate();
+    }
+
+    @Override
+    public void saveWalletToCSV(int user_id) {
+        FileChooser fileChooser = new FileChooser();
+        String filePath = fileChooser.showSaveDialog(null).getAbsolutePath();
+        System.out.println("filePath: " + filePath);
+    }
+
 }

@@ -19,4 +19,6 @@ public interface CryptoTransactionService
     public void updateOrderStatus(CryptoTransaction cryptoTransaction);
 
     public void deleteTransaction(int cryptoTransaction_id);
+
+   // public void deleteAllTransactionsPerUser(int user_id);
 }

@@ -150,5 +150,15 @@ public class UserDAOImpl implements UserDAO
         return tempUserBallance;
     }
 
+    @Override
+    public void deleteUser(int id) {
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        Query theQuery = currentSession.createQuery("delete from User where id = :id");
+        theQuery.setParameter("id", id);
+
+        int result = theQuery.executeUpdate();
+    }
+
 
 }

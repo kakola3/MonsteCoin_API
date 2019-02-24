@@ -1,20 +1,16 @@
 package monstercoin.dao;
 
 import monstercoin.entity.CryptoTransaction;
-import monstercoin.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public class CryptoTransactionDAOImpl implements CryptoTransactionDAO
-{
+public class CryptoTransactionDAOImpl implements CryptoTransactionDAO {
     // need to inject the session factory
     @Autowired
     private SessionFactory sessionFactory;
@@ -103,4 +99,14 @@ public class CryptoTransactionDAOImpl implements CryptoTransactionDAO
 
         int result = theQuery.executeUpdate();
     }
+
+//    @Override
+//    public void deleteAllTransactionsPerUser(int user_id) {
+//        Session currentSession = sessionFactory.getCurrentSession();
+//
+//        Query theQuery = currentSession.createQuery("delete from CryptoTransaction where user_id = :user_id");
+//        theQuery.setParameter("user_id", user_id);
+//
+//        int result = theQuery.executeUpdate();
+//    }
 }

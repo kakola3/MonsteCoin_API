@@ -56,4 +56,10 @@ public class CryptoTransactionServiceImpl implements CryptoTransactionService
     public void deleteTransaction(int cryptoTransaction_id) {
         cryptoTransactionDAO.deleteTransaction(cryptoTransaction_id);
     }
+
+//    @Override
+//    @Transactional
+//    public void deleteAllTransactionsPerUser(int user_id){
+//        cryptoTransactionDAO.deleteAllTransactionsPerUser(user_id);
+//    }
 }

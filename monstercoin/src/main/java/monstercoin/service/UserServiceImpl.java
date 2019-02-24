@@ -53,4 +53,8 @@ public class UserServiceImpl implements UserService
     public double getUserBallance(int id) {
         return userDAO.getUserBallance(id);
     }
+
+    @Override
+    @Transactional
+    public void deleteUser(int id){userDAO.deleteUser(id);}
 }

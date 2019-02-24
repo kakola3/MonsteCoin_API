@@ -17,4 +17,7 @@ public interface UserService
     public void updateAccountBallance(int user_id, double ballance);
 
     public double getUserBallance(int id);
+
+    public void deleteUser(int id);
+
 }

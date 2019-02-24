@@ -9,4 +9,7 @@ public interface WalletService
     public Wallet getWalletPerUser(int user_id);
 
     public void updateWallet(int user_id, String cryptoToUpdate, double cryptoAmount);
+
+    public void deleteWallet(int user_id);
+
 }

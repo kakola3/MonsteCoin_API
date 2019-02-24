@@ -1,15 +1,17 @@
 package monstercoin.rest;
 
-import monstercoin.dao.UserDAO;
 import monstercoin.entity.User;
 import monstercoin.entity.Wallet;
+import monstercoin.service.CryptoTransactionService;
 import monstercoin.service.UserService;
 import monstercoin.service.WalletService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,6 +24,9 @@ public class UserRestController
 
     @Autowired
     WalletService walletService;
+
+    @Autowired
+    CryptoTransactionService cryptoTransactionService;
 
     // add mapping for GET /users
     @CrossOrigin
@@ -89,5 +94,58 @@ public class UserRestController
             else return 666; // unknown field
         }
 }
+
+    @CrossOrigin
+    @GetMapping("/users-with-wallets")
+    public String getUsersWithWallets() {
+        List<User> users = userService.getUsers();
+        List<String> objectsArray = new ArrayList<>();
+
+        Wallet wallet;
+
+        JSONObject jsonString = new JSONObject();
+
+        String concatenatedString = "{\"wallets\":[";
+
+
+        for (int i = 0; i < users.size(); i++) {
+            wallet = walletService.getWalletPerUser(i);
+            jsonString.put("user-id", users.get(i).getId());
+            jsonString.put("login", users.get(i).getLogin());
+            jsonString.put("email", users.get(i).getEmail());
+            jsonString.put("ballance", users.get(i).getBallance_account());
+            jsonString.put("wallet", new JSONObject()
+                    .put("bitcoin", wallet.getBitcoin_amount())
+                    .put("ethereum", wallet.getEthereum_amount())
+                    .put("litecoin", wallet.getLitecoin_amount())
+                    .put("xrp", wallet.getXrp_amount())
+                    .put("eos", wallet.getEos_amount()));
+            objectsArray.add(jsonString.toString());
+            System.out.println("jsonString: " + jsonString);
+        }
+
+        for(int i=0; i<objectsArray.size(); i++){
+            concatenatedString+=objectsArray.get(i);
+            concatenatedString+=",";
+        }
+        concatenatedString = concatenatedString.substring(0, concatenatedString.length() - 1);
+        concatenatedString+="]}";
+
+        return concatenatedString;
+    }
+
+    @CrossOrigin
+    @GetMapping("/delete-user")
+    public int deleteUser(@RequestParam("id") int id) {
+        if (id != 0) {
+            User user = userService.getUsers().get(id);
+
+            userService.deleteUser(id);
+            walletService.deleteWallet(id);
+         //   cryptoTransactionService.deleteAllTransactionsPerUser(id);
+            return 0;
+        }else return 1;
+
+    }
 
 }
